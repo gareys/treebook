@@ -24,12 +24,27 @@
           <%= link_to "All Statuses", statuses_path %>
         </li>
       </ul>
+      <ul class="nav navbar-nav pull-right">
+        <% if user_signed_in? %>
+        <li><%= link_to current_user.full_name, edit_user_registration_path %></li>
+        <li class="active"><%= link_to "Log Out", logout_path %></li>
+        <% else %>
+        <li><%= link_to "Register", register_path %></li>
+        <li><%= link_to "Log In", login_path%></li>
+      <% end %>
+      </ul>
     </nav>
   </div>
 </header>
 <div class="container">
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+    <% flash.each do |type, message| %>
+      <div class="alert <%= flash_class(type) %> alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+          <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <%= message %>
+      </div>
+    <% end %>
+
 	<%= yield %>
 </div>
 <div class="footer">

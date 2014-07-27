@@ -13,9 +13,23 @@
  *= require_tree .
  *= require_self
  */
+
+@import "bootstrap";
+@import "bootstrap/theme";
+
 body {
-	padding-top: 30px;
+ padding-top: 50px;
 }
+
+.alert {
+  margin-top: 10px;
+
+}
+
+fieldset {
+  margin: 30px 0px 0px 0px;
+}
+
 
 /* BEGIN STICKY FOOTER CSS */
 
@@ -23,10 +37,12 @@ html {
   position: relative;
   min-height: 100%;
 }
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;

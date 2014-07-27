@@ -3,15 +3,25 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :profile_name, presence: true,
+                          uniqueness: true,
+                          format: {
+                                  with: /\A[a-zA-Z0-9\-\_]+\Z/,
+                                    
+                                  message: "Must be formatted correctly."
+                                  }
+  
+  has_many :statuses
+  
+  def full_name
+    first_name + " " + last_name  
+  end
+  
+  def to_param
+    profile_name
+  end
 
-  class User::RegistrationsController < Devise::RegistrationsController
-  def sign_up_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
-  end
-  def account_update_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password)
-  end
-  private :sign_up_params
-  private :account_update_params
-  end
 end
