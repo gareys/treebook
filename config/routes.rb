@@ -1,6 +1,8 @@
 Treebook::Application.routes.draw do
 
 
+  get 'profiles/show'
+
   as :user do
     get "/register", to: "devise/registrations#new", as: :register
     get "/login", to: "devise/sessions#new", as: :login
@@ -19,6 +21,8 @@ Treebook::Application.routes.draw do
   resources :statuses
 
   get 'feed', to: 'statuses#index', as: :feed
+
+  get '/:id', to: 'profiles#show', as: :profile
   
   root 'statuses#index'
 end
